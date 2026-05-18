@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticaGymTracker", "PracticaGymTracker\PracticaGymTracker.csproj", "{BE6901F0-AD81-477E-A35B-4CFBF20A0547}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymTrackerApp", "GymTrackerApp\GymTrackerApp.csproj", "{BE6901F0-AD81-477E-A35B-4CFBF20A0547}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

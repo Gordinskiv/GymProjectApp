@@ -6,6 +6,18 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="Fill" Value="GhostWhite" />
+            <Setter Property="Opacity" Value="0.1"/>
+        </Style>
+        <Style Selector="DataGridCell:current /template/ Grid#FocusVisual">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+            <Setter Property="Fill" Value="GhostWhite" />
+            <Setter Property="Opacity" Value="0.1"/>
+        </Style>
         <Style Selector="Border.StatCard">
             <Setter Property="Background" Value="Coral" />
             <Setter Property="CornerRadius" Value="12" />
@@ -28,7 +40,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://PracticaGymTracker/Resources/Strings.ua.axaml" />
+                <ResourceInclude Source="avares://GymTrackerApp/Resources/Strings.ua.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ResourceDictionary.ThemeDictionaries>

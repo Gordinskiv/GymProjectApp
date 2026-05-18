@@ -35,7 +35,7 @@ public partial class SettingsViewModel : ViewModelBase
         var app = Application.Current;
         if (app == null) return;
         
-        string path = $"avares://PracticaGymTracker/Resources/Strings.{langCode}.axaml";
+        string path = $"avares://GymTrackerApp/Resources/Strings.{langCode}.axaml";
         
         try
         {

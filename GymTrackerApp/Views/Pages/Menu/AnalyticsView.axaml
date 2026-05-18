@@ -1,0 +1,101 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:PracticaGymTracker.ViewModels"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             x:DataType="vm:AnalyticsViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PracticaGymTracker.Views.Pages.AnalyticsView">
+
+    <Grid RowDefinitions="Auto, *, Auto, Auto, Auto" Margin="20">
+
+        <TextBlock Grid.Row="0" Text="АНАЛІТИКА ТА ЗАМІРИ"
+                   FontSize="28" FontWeight="Black"
+                   Foreground="{DynamicResource TextWhite}"
+                   Margin="0,0,0,20" />
+        <Border Grid.Row="1" Background="{DynamicResource BgCard}" CornerRadius="12" Padding="20" Margin="0,0,0,20"
+                ClipToBounds="True">
+            <Grid RowDefinitions="Auto, *">
+                <TextBlock Grid.Row="0" Text="ПРОГРЕС ВАГИ (КГ)"
+                           Foreground="{DynamicResource TextMuted}"
+                           FontWeight="Bold" Margin="0,0,0,10" />
+                <lvc:CartesianChart Grid.Row="1"
+                                    Series="{Binding WeightSeries}"
+                                    XAxes="{Binding XAxes}"
+                                    TooltipPosition="Top" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Background="{DynamicResource BgCard}" CornerRadius="12" Padding="15" Margin="0,0,0,20">
+            <Grid ColumnDefinitions="*, *, *, *, Auto">
+                <TextBox Grid.Column="0" Watermark="Вага (кг)" Text="{Binding NewWeight}" Margin="0,0,10,0"
+                         Background="{DynamicResource BgDark}" BorderThickness="0" />
+                <TextBox Grid.Column="1" Watermark="Груди (см)" Text="{Binding NewChest}" Margin="0,0,10,0"
+                         Background="{DynamicResource BgDark}" BorderThickness="0" />
+                <TextBox Grid.Column="2" Watermark="Біцепс (см)" Text="{Binding NewBiceps}" Margin="0,0,10,0"
+                         Background="{DynamicResource BgDark}" BorderThickness="0" />
+                <TextBox Grid.Column="3" Watermark="Талія (см)" Text="{Binding NewWaist}" Margin="0,0,10,0"
+                         Background="{DynamicResource BgDark}" BorderThickness="0" />
+
+                <Button Grid.Column="4" Content="ДОДАТИ" Command="{Binding AddMeasurementCommand}"
+                        Background="{DynamicResource AccentMain}" Foreground="White" FontWeight="Bold" CornerRadius="8" />
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="3" Margin="0,0,0,20">
+
+            <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,10">
+                <TextBlock Grid.Column="0" Text="ІСТОРІЯ ЗАМІРІВ" FontSize="20" FontWeight="Black"
+                           Foreground="{DynamicResource TextWhite}" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Content="ВИДАЛИТИ ВИБРАНЕ"
+                        Command="{Binding DeleteMeasurementCommand}"
+                        Background="#E53935" Foreground="White" FontWeight="Bold" CornerRadius="8" Padding="15,5">
+                    <Button.IsEnabled>
+                        <Binding Path="SelectedMeasurement" Converter="{x:Static ObjectConverters.IsNotNull}" />
+                    </Button.IsEnabled>
+                </Button>
+            </Grid>
+            <Border Background="{DynamicResource BgCard}" CornerRadius="12" Padding="10">
+                <DataGrid ItemsSource="{Binding MeasurementsHistory}"
+                          SelectedItem="{Binding SelectedMeasurement}"
+                          MaxHeight="200"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          AutoGenerateColumns="False" IsReadOnly="True"
+                          Background="Transparent" RowBackground="Transparent"
+                          Foreground="{DynamicResource TextWhite}"
+                          GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#33ffffff">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ДАТА" Binding="{Binding DisplayDate}" Width="*" />
+                        <DataGridTextColumn Header="ВАГА" Binding="{Binding Weight, StringFormat='{}{0} кг'}" Width="*"
+                                            Foreground="{DynamicResource AccentMain}" />
+                        <DataGridTextColumn Header="ГРУДИ" Binding="{Binding Chest, StringFormat='{}{0} см'}" Width="*" />
+                        <DataGridTextColumn Header="БІЦЕПС" Binding="{Binding Biceps, StringFormat='{}{0} см'}"
+                                            Width="*" />
+                        <DataGridTextColumn Header="ТАЛІЯ" Binding="{Binding Waist, StringFormat='{}{0} см'}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </StackPanel>
+
+        <Border Grid.Row="4" Background="{DynamicResource BgCard}" CornerRadius="12" Padding="20">
+            <Grid RowDefinitions="Auto, Auto, Auto">
+
+                <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,10">
+                    <TextBlock Grid.Column="0" Text="МЕТА: 75 КГ" FontSize="18" FontWeight="Black"
+                               Foreground="{DynamicResource TextWhite}" />
+                    <TextBlock Grid.Column="1" Text="{Binding ProgressPercentage, StringFormat='{}{0:0}%'}"
+                               FontSize="18" FontWeight="Black" Foreground="{DynamicResource AccentMain}" />
+                </Grid>
+
+                <ProgressBar Grid.Row="1" Minimum="0" Maximum="100" Value="{Binding ProgressPercentage}"
+                             Height="12" CornerRadius="6"
+                             Foreground="{DynamicResource AccentMain}" Background="{DynamicResource BgDark}" />
+
+                <TextBlock Grid.Row="2" Text="{Binding CurrentWeight, StringFormat='Поточна вага: {0} кг'}"
+                           Foreground="{DynamicResource TextMuted}" FontSize="12" Margin="0,8,0,0" />
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>
