@@ -8,4 +8,5 @@ public class UserProfile
     public double TargetWeight { get; set; } = 75;
     public int WorkoutsPerWeek { get; set; } = 4;
     public int DailyCalories { get; set; } = 3000;
+    public string? AvatarPath { get; set; }
 }
